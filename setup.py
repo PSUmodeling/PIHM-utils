@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="PIHM-utils",
-    version="1.0.0",
+    version="1.0.1",
     author="Yuning Shi",
     author_email="shiyuning@gmail.com",
     packages=["pihm"],
@@ -15,5 +15,5 @@ setuptools.setup(
     url="https://github.com/PSUmodeling/PIHM-utils",
     license='MIT',
     python_requires='>=3.6',
-    install_requires=["numpy>=1.20.1"]
+    install_requires=["numpy>=1.19.5"]
 )
