@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="PIHM-utils",
-    version="1.0.1",
+    version="1.0.2",
     author="Yuning Shi",
     author_email="shiyuning@gmail.com",
     packages=["pihm"],

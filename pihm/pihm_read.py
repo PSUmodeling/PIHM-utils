@@ -155,19 +155,17 @@ def read_output(pihm_dir, simulation, outputdir, ext):
         'nstress': ['%s N stress', '-', [7, 8]],
         'transp': ['%s transpiration', 'mm day$^{-1}$', [6, 7]],
         'pottransp': ['%s potential transpiration', 'mm day$^{-1}$', [9, 10]],
-        'NO3': ['Soil profile NO$_3$', 'Mg ha$^{-1}$', [0, 0]],
-        'NH4': ['Soil profile NH$_4$', 'Mg ha$^{-1}$', [0, 0]],
-        'river.NO3': ['River NO$_3$', 'Mg ha$^{-1}$', [0, 0]],
-        'river.NH4': ['River NH$_4$', 'Mg ha$^{-1}$', [0, 0]],
+        'no3': ['Soil profile NO$_3^-$', 'Mg ha$^{-1}$', [0, 0]],
+        'nh4': ['Soil profile NH$_4^+$', 'Mg ha$^{-1}$', [0, 0]],
+        'river.no3': ['River NO$_3^-$', 'Mg ha$^{-1}$', [0, 0]],
+        'river.nh4': ['River NH$_4^+$', 'Mg ha$^{-1}$', [0, 0]],
         'denitrif': ['Denitrification', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'nitrif': ['Nitrification', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'immobil': ['N immobilization', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'mineral': ['N mineralization', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'volatil': ['N volatilization', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
-        'NO3leaching': ['NO$_3$ leaching', 'kg s$^{-1}$', [0, 0]],
-        'NH4leaching': ['NH$_4$ leaching', 'kg s$^{-1}$', [0, 0]],
-        'river.NO3leaching': ['River NO$_3$ flux', 'kg s$^{-1}$', [0, 0]],
-        'river.NH4leaching': ['River NH$_4$ flux', 'kg s$^{-1}$', [0, 0]],
+        'no3leaching': ['NO$_3^-$ leaching', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
+        'nh4leaching': ['NH$_4^+$ leaching', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'soc': ['Soil organic carbon', 'Mg ha$^{-1}$', [0, 0]],
         'n2o': ['N$_2$O emission', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'n_harvest': ['N in harvest', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
@@ -187,7 +185,7 @@ def read_output(pihm_dir, simulation, outputdir, ext):
 
     # Find output description and unit
     for key, val in outputs.items():
-        tmpstr = ext if val[LOC][0] == 0 else ext[0:val[LOC][0]]
+        tmpstr = ext.lower() if val[LOC][0] == 0 else ext[0:val[LOC][0]].lower()
         if tmpstr == key:
             varname = val[DESC] % (ext[val[LOC][1]:]) if val[LOC][1] > 0 else val[DESC]
             unit = val[UNIT]
