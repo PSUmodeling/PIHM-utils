@@ -12,6 +12,11 @@ def read_mesh(pihm_dir, simulation):
     Read MM-PIHM mesh input file.
     '''
 
+    # Check if simulation is an ensemble member
+    if simulation.rfind(".") != -1:
+        if simulation[simulation.rfind(".") + 1:].isnumeric():
+            simulation = simulation[0:simulation.rfind(".")]
+
     # Full file name
     fname = '%s/input/%s/%s.mesh' % (pihm_dir, simulation, simulation)
 
@@ -50,6 +55,11 @@ def read_river(pihm_dir, simulation):
     '''
     Read MM-PIHM river input file
     '''
+
+    # Check if simulation is an ensemble member
+    if simulation.rfind(".") != -1:
+        if simulation[simulation.rfind(".") + 1:].isnumeric():
+            simulation = simulation[0:simulation.rfind(".")]
 
     # Full file name
     fname = '%s/input/%s/%s.riv' % (pihm_dir, simulation, simulation)
@@ -167,9 +177,12 @@ def read_output(pihm_dir, simulation, outputdir, ext):
         'no3leaching': ['NO$_3^-$ leaching', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'nh4leaching': ['NH$_4^+$ leaching', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'soc': ['Soil organic carbon', 'Mg ha$^{-1}$', [0, 0]],
-        'n2o': ['N$_2$O emission', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
+        'n2o_nitrif': ['N$_2$O emission from nitrification', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
+        'n2o_denitrif': ['N$_2$O emission from denitrification', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         'n_harvest': ['N in harvest', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
-        'n_input': ['N input', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
+        'n_fert': ['N from fertilization', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
+        'n_auto': ['N auto added', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
+        'n_fix': ['N fixation', 'Mg ha$^{-1}$ day$^{-1}$', [0, 0]],
         # Deep groundwater module output
         'deep.unsat': ['Deep zone unsaturated storage', 'm', [0, 0]],
         'deep.gw': ['Deep groundwater storage', 'm', [0, 0]],
