@@ -5,7 +5,7 @@ import os
 import struct
 from datetime import datetime
 
-# Compatible with MM-PIHM 1.0.0-rc3
+# Compatible with MM-PIHM 1.0.0-rc4
 
 def read_mesh(pihm_dir, simulation):
     '''
