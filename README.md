@@ -39,4 +39,4 @@ For a complete list of available output variables, please refer to the MM-PIHM U
 
 ## Examples
 
-Please check out the [interactive Python notebook](https://colab.research.google.com/drive/1uD7ErWWUb5TFfOos6eQiX_5WZw-SV58h?usp=sharing) for a visualization example.
+Please check out the [Python notebook](https://github.com/PSUmodeling/MM-PIHM/blob/main/PIHM_visualization.ipynb) for a visualization example.
