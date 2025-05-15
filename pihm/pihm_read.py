@@ -67,7 +67,7 @@ def _read_river(pihm_dir, simulation):
     return df
 
 
-def read_grid(pihm_dir: str, simulation: str) -> tuple[pd.DateFrame, pd.DataFrame, pd.DataFrame]:
+def read_grid(pihm_dir: str, simulation: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """ Read MM-PIHM grid setup
     """
     simulation = _simulation_name(simulation)
