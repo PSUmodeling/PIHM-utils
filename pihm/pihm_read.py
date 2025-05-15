@@ -2,8 +2,8 @@ import numpy as np
 import os
 import pandas as pd
 import struct
+from .pihm_output import OUTPUT
 from io import StringIO
-from pihm_output import OUTPUT
 
 # Compatible with MM-PIHM v1.x
 def _simulation_name(simulation):
