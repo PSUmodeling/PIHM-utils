@@ -31,6 +31,9 @@ OUTPUT = {
     'soilm': lambda extension: 'Total soil moisture (m)',
     'solar': lambda extension: 'Solar radiation (W m$^{-2}$)',
     'ch': lambda extension: 'Surface exchange coefficient (m s$^{-1}$)',
+    # Tracer module output
+    'tracer': lambda extension: f'{extension[7:]} amount (unit)',
+    'river.tracer': lambda extension: f'stream {extension[13:]} amount (unit)',
     # BGC module output
     'lai': lambda extension: 'LAI (m$^2$ m$^{-2}$)',
     'npp': lambda extension: 'NPP (kgC m$^{-2}$ day$^{-1}$)',
@@ -77,15 +80,4 @@ OUTPUT = {
     'n_fert': lambda extension: 'N from fertilization (Mg ha$^{-1}$ day$^{-1}$)',
     'n_auto': lambda extension: 'N auto added (Mg ha$^{-1}$ day$^{-1}$)',
     'n_fix': lambda extension: 'N fixation (Mg ha$^{-1}$ day$^{-1}$)',
-    # Deep groundwater module output
-    'deep.unsat': lambda extension: 'Deep zone unsaturated storage (m)',
-    'deep.gw': lambda extension: 'Deep groundwater storage (m)',
-    'deep.infil': lambda extension: 'Deep zone infiltration (m s$^{-1}$)',
-    'deep.recharge': lambda extension: 'Deep zone recharge (m s$^{-1}$)',
-    'deep.flow': lambda extension: f'Deep layer lateral flow {extension[9:]} (m$^3$ s$^{{-1}}$)',
-    # RT module output
-    'conc': lambda extension: f'{extension[5:]} concentration (mol L$^{{-1}}$)',
-    'deep.conc': lambda extension: f'Deep zone {extension[10:]} concentration (mol L$^{{-1}}$)',
-    'river.conc': lambda extension: f'Stream {extension[11:]} concentration (mol L$^{{-1}}$)',
-    'river.chflx': lambda extension: f'River {extension[12:]} flux (kmol s$^{{-1}}$)',
 }
