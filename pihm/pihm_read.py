@@ -2,39 +2,50 @@ import numpy as np
 import os
 import pandas as pd
 import struct
+from datetime import datetime
+from dataclasses import dataclass
 from io import StringIO
 from .pihm_output import OUTPUT
 
 # Compatible with MM-PIHM v1.x
-class _Output():
-    def __init__(self, df, unit):
-        self.data = df
-        self.unit = unit
+@dataclass
+class Output:
+    data: pd.DataFrame
+    description: str
+
+
+@dataclass
+class Mesh:
+    elements: pd.DataFrame
+    nodes: pd.DataFrame
     
 
-class PIHM():
-    def __init__(self, pihm_dir: str, simulation: str):
-        self.dir = pihm_dir
-        self.simulation = simulation
-        self.elements, self.nodes = self._read_mesh()
-        self.river = self._read_river()
-        self.n_elements = len(self.elements)
-        self.n_river = len(self.river)
-        self.output = {}
+class PIHM:
+    def __init__(self, pihm_dir: str, simulation: str) -> None:
+        self.dir: str = pihm_dir
+        self.simulation: str = simulation
+        self.mesh: Mesh = self._read_mesh()
+        self.river: pd.DataFrame = self._read_river()
+        self.n_elements: int = len(self.mesh.elements)
+        self.n_river: int = len(self.river)
+        self.output: dict[str, Output] = {}
+        self.start_time: datetime = None
+        self.end_time: datetime = None
     
 
     def __repr__(self):
-        return f"MM-PIHM output for {self.simulation} ({self.n_elements} grids, {self.n_river} stream segments).\nOutput: {None if not self.output else ', '.join(self.output)}"
+        return f"MM-PIHM output for {self.simulation} ({self.n_elements} grids, {self.n_river} stream segments)\n" + \
+            ("Output: None" if not self.output else f"Output from {self.start_time.strftime('%Y-%m-%d')} to {self.end_time.strftime('%Y-%m-%d')}: {', '.join(self.output)}")
     
 
-    def _simulation_name(self, simulation):
+    def _simulation_name(self, simulation: str) -> str:
         if simulation.rfind('.') != -1 and simulation[simulation.rfind('.') + 1:].isnumeric():
             return simulation[0:simulation.rfind('.')]
         else:
             return simulation
 
 
-    def _read_mesh(self):
+    def _read_mesh(self) -> Mesh:
         # Read mesh file into an array of strings with leading white spaces removed
         # Line starting with "#" are not read in
         simulation = self._simulation_name(self.simulation)
@@ -75,10 +86,10 @@ class PIHM():
 
         element_df.drop(columns=['node1', 'node2', 'node3', 'neighbor1', 'neighbor2', 'neighbor3'], inplace=True)
 
-        return element_df, node_df
+        return Mesh(element_df, node_df)
 
 
-    def _read_river(self):
+    def _read_river(self) -> pd.DataFrame:
         # Read river file into an array of strings with leading white spaces removed
         # Line starting with "#" are not read in
         simulation = self._simulation_name(self.simulation)
@@ -101,7 +112,7 @@ class PIHM():
         return df
 
 
-    def read_output(self, *, output_dir: str, extension: str):
+    def read_output(self, *, output_dir: str, extension: str) -> None:
         # Full file name (binary file)
         fn = f'{self.dir}/output/{output_dir}/{self.simulation}.{extension}.dat'
 
@@ -131,7 +142,9 @@ class PIHM():
             if extension.lower().startswith(key):
                 description = func(extension)
 
-                self.output[extension] = _Output(df, description)
+                self.output[extension] = Output(df, description)
+                self.start_time = df.index[0] if self.start_time is None else self.start_time
+                self.end_time = df.index[-1] if self.end_time is None else self.end_time
                 break
         else:
             raise ValueError(f'Unknown output type: {extension}')

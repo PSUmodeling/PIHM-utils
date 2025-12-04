@@ -16,9 +16,9 @@ OUTPUT = {
     'surfflx': lambda extension: f'Surface flux {extension[7:]} (m$^3$ s$^{{-1}}$)',
     # Flux module output
     't1': lambda extension: 'Land surface temperature (K)',
-    'stc': lambda extension: f'Soil temperature (Layer {extension[3:] + 1}) (K)',
-    'smc': lambda extension: f'Soil moisture content (Layer {extension[3:] + 1}) (m$^3$ m$^{{-3}}$)',
-    'swc': lambda extension: f'Soil water content (Layer {extension[3:] + 1}) (m$^3$ m$^{{-3}}$)',
+    'stc': lambda extension: f'Soil temperature (Layer {int(extension[3:]) + 1}) (K)',
+    'smc': lambda extension: f'Soil moisture content (Layer {int(extension[3:]) + 1}) (m$^3$ m$^{{-3}}$)',
+    'swc': lambda extension: f'Soil water content (Layer {int(extension[3:]) + 1}) (m$^3$ m$^{{-3}}$)',
     'snowh': lambda extension: 'Snow depth (m)',
     'iceh': lambda extension: 'Ice depth (m)',
     'albedo': lambda extension: 'Albedo (-)',
